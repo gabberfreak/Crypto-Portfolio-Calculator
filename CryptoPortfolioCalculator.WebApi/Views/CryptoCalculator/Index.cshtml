@@ -1,0 +1,28 @@
+﻿@model FileModel
+@{
+}
+
+<div class="contrainer">
+    <div class="jumbotron">
+        <h1>Dynamo Crypto Portfolio</h1>
+        <p class="lead">Web interface for calculating your crypto value in real time</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" asp-controller="CryptoCalculator" asp-action="GenerateStats">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input type="file" name="file" class="form-control"/>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input class="btn btn-primary" type="submit" value="Submit" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,56 @@
+﻿@model CalculatorViewModel
+
+<div class="form-horizontal">
+    <hr />
+    <div class="form-group">
+        <table class="table table-responsive">
+            <tbody>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.InitialValue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(m => m.Overall)
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => m.InitialValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Overall)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="form-group">
+        <table class="table table-responsive">
+            <tbody>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(m => m.CoinChange.First().CoinName)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(m => m.CoinChange.First().PercentageChange)
+                    </th>
+                </tr>
+                @foreach (var item in Model.CoinChange)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CoinName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PercentageChange)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
