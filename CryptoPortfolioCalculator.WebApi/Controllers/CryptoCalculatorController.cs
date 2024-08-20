@@ -1,9 +1,11 @@
 ﻿using CryptoPortfolio.Domain.Models;
 using CryptoPortfolio.Service.Contracts;
 using CryptoPortfolioCalculator.Web.Helpers;
+using CryptoPortfolioCalculator.Web.Hubs;
 using CryptoPortfolioCalculator.Web.Models;
 using CryptoPortfolioCalculator.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Text.Json;
 
 namespace CryptoPortfolioCalculator.Web.Controllers
@@ -15,19 +17,23 @@ namespace CryptoPortfolioCalculator.Web.Controllers
         private readonly IConfiguration _configuration;
         private readonly ICryptoMapperService _cryptoMapperService;
         private readonly ICallBackService _callBackService;
+        private readonly IHubContext<CalculatePortfolioPercentChangeHub> _calculatorHub;
+        private readonly MiddlewareSettings endpoints;
         public CryptoCalculatorController(
             ILogger<CryptoCalculatorController> logger,
             ICryptoMapperService cryptoMapperService,
             ICallBackService callBackService,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IHubContext<CalculatePortfolioPercentChangeHub> calculatorHub)
         {
             _logger = logger;
             _cryptoMapperService = cryptoMapperService;
             _callBackService = callBackService;
             _configuration = configuration;
+            _calculatorHub = calculatorHub;
+            endpoints= _configuration?.GetSection("MiddlewareEndPoints")?.Get<MiddlewareSettings>();
         }
 
-        // GET: CryptoCalculator
         public ActionResult Index()
         { 
             return View();
@@ -63,15 +69,12 @@ namespace CryptoPortfolioCalculator.Web.Controllers
                     return RedirectToAction();
                 }
 
-                MiddlewareSettings endpoints = _configuration?.GetSection("MiddlewareEndPoints")?.Get<MiddlewareSettings>();
-
                 string[] readedFile = await FileReader.ReadFileAsync(model.File);
                 var wallet = _cryptoMapperService.MapCryptoPortfoilioValues(readedFile);
 
                 _logger.LogInformation("Successfully readed and mapped file: " + DateTime.Now);
 
-
-                var statsResult = await _callBackService.CalculateStatsAsync(wallet, endpoints); //old
+                var statsResult = await _callBackService.CalculateStatsAsync(wallet, endpoints); 
 
                 _logger.LogInformation("Successfully synced api callbacks at: " + DateTime.Now);
 
@@ -82,7 +85,7 @@ namespace CryptoPortfolioCalculator.Web.Controllers
                     Overall = statsResult.Overall
                 };
 
-                TempData["stats"] = JsonSerializer.Serialize(viewModel);
+                TempData["file"] = JsonSerializer.Serialize(wallet);
                 return View(viewModel);
             }
             catch (Exception ex)
@@ -91,5 +94,18 @@ namespace CryptoPortfolioCalculator.Web.Controllers
                 throw ex;
             }
          }
+
+        [HttpGet]
+        public async Task<IActionResult> GetInitialPortfolioValue()
+        {
+            var model = JsonSerializer.Deserialize<List<CryptoWalletModel>>(TempData["file"].ToString());
+            TempData.Keep("file");
+
+            var statsResult = await _callBackService.CalculateStatsAsync(model, endpoints);
+
+            await _calculatorHub.Clients.All.SendAsync("AppendValues", statsResult);
+
+            return Ok(statsResult);
+        }
     }
 }

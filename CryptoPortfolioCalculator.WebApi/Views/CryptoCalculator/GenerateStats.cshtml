@@ -1,6 +1,6 @@
 ﻿@model CalculatorViewModel
 
-<div class="form-horizontal">
+<div class="form-horizontal" id="form">
     <hr />
     <div class="form-group">
         <table class="table table-responsive">
@@ -14,7 +14,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <td>
+                    <td id="initial">
                         @Html.DisplayFor(m => m.InitialValue)
                     </td>
                     <td>
@@ -53,4 +53,29 @@
     </div>
 </div>
 
+<script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0-rc.2.23480.2/signalr.min.js" type="text/javascript"></script>
+
+<script>
+
+    $(function () {
+        var connection = new signalR.HubConnectionBuilder().withUrl("/calculatePortfolioPercentChangeHub").build();
+
+        connection.start();
+
+        connection.on("AppendValues", function (model) {
+
+            $("#initial").text(model.InitialValue);
+        });
+
+        
+        setInterval(function () {
+            var initialText = $('#initial').text().replace(/(\r\n|\n|\r)/gm, "");
+
+            $.post("/CryptoCalculator/GetInitialPortfolioValue", { initialPortfolioValue: initialText }, function (data) {
+                connection.invoke("UpdatePortfolioValues", data);
+            });
+        }, 1000 * 60 * 5);
+    });
+</script>
 

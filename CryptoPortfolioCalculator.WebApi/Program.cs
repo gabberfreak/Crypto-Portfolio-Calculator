@@ -2,6 +2,7 @@ using CryptoPortfolioCalculator.Web.Services;
 using CryptoPortfolio.Service.Contracts;
 using CryptoPortfolio.Service;
 using CryptoPortfolio.Domain.Models;
+using CryptoPortfolioCalculator.Web.Hubs;
 
 namespace CryptoPortfolioCalculator.Web
 {
@@ -12,6 +13,7 @@ namespace CryptoPortfolioCalculator.Web
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSignalR();
 
             builder.Services.AddHttpClient<ICallBackService, CallBackService>("MiddlewareAPI", httpClient =>
             {
@@ -41,10 +43,14 @@ namespace CryptoPortfolioCalculator.Web
 
             app.UseRouting();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<CalculatePortfolioPercentChangeHub>("/calculatePortfolioPercentChangeHub");
+            });
 
             app.Run();
         }
