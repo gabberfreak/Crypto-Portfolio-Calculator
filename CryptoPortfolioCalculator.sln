@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinLoreMiddleware.WebApi", "CryptoPortfolioAPI.Web\CoinLoreMiddleware.WebApi.csproj", "{EB1E9E5C-9844-49A4-ACFC-E31FA271FDCE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoPortfolioCalculator.Web", "CryptoPortfolioCalculator.WebApi\CryptoPortfolioCalculator.Web.csproj", "{33F6D4D0-93AC-434C-83B7-8FC7ECF72172}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinLoreMiddleware.Services", "CryptoPortfolioCalculator.Services\CoinLoreMiddleware.Services.csproj", "{14276EBC-0ED2-4317-A898-D552FFDB409A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoPortfolio.Service", "CryptoPortfolio.Service\CryptoPortfolio.Service.csproj", "{7CF3FD5A-FF25-431D-A7B0-B2916239777B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoPortfolio.Service", "CryptoPortfolio.Service\CryptoPortfolio.Service.csproj", "{7CF3FD5A-FF25-431D-A7B0-B2916239777B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoPortfolio.Domain", "CryptoPortfolio.Domain\CryptoPortfolio.Domain.csproj", "{E3362D7E-2CF5-4642-B709-19F21423CB03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoPortfolio.Domain", "CryptoPortfolio.Domain\CryptoPortfolio.Domain.csproj", "{E3362D7E-2CF5-4642-B709-19F21423CB03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinLoreMiddleware.WebApi", "CoinLoreMiddleware.WebApi\CoinLoreMiddleware.WebApi.csproj", "{BAE31E1F-260A-42E7-A834-6FC0876922FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinLoreMiddleware.Services", "CoinLoreMiddleware.Services\CoinLoreMiddleware.Services.csproj", "{D1546416-EE52-42BF-A8D6-FCE42F125730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,18 +19,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EB1E9E5C-9844-49A4-ACFC-E31FA271FDCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB1E9E5C-9844-49A4-ACFC-E31FA271FDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB1E9E5C-9844-49A4-ACFC-E31FA271FDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB1E9E5C-9844-49A4-ACFC-E31FA271FDCE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33F6D4D0-93AC-434C-83B7-8FC7ECF72172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33F6D4D0-93AC-434C-83B7-8FC7ECF72172}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33F6D4D0-93AC-434C-83B7-8FC7ECF72172}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33F6D4D0-93AC-434C-83B7-8FC7ECF72172}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14276EBC-0ED2-4317-A898-D552FFDB409A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14276EBC-0ED2-4317-A898-D552FFDB409A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14276EBC-0ED2-4317-A898-D552FFDB409A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14276EBC-0ED2-4317-A898-D552FFDB409A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7CF3FD5A-FF25-431D-A7B0-B2916239777B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7CF3FD5A-FF25-431D-A7B0-B2916239777B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CF3FD5A-FF25-431D-A7B0-B2916239777B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +31,14 @@ Global
 		{E3362D7E-2CF5-4642-B709-19F21423CB03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3362D7E-2CF5-4642-B709-19F21423CB03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3362D7E-2CF5-4642-B709-19F21423CB03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAE31E1F-260A-42E7-A834-6FC0876922FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE31E1F-260A-42E7-A834-6FC0876922FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAE31E1F-260A-42E7-A834-6FC0876922FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAE31E1F-260A-42E7-A834-6FC0876922FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1546416-EE52-42BF-A8D6-FCE42F125730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1546416-EE52-42BF-A8D6-FCE42F125730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1546416-EE52-42BF-A8D6-FCE42F125730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1546416-EE52-42BF-A8D6-FCE42F125730}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
